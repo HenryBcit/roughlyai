@@ -1,0 +1,36 @@
+{
+  "name": "roughlyai",
+  "version": "1.1.0",
+  "description": "core functions needed to run roughlyai functionalities",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "homepage": "https://github.com/HenryBcit/roughlyai#readme",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "jest"
+  },
+  "keywords": [
+    "ai",
+    "roughlyai",
+    "index"
+  ],
+  "author": "Henry Leung",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "dotenv": "^16.4.5",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3"
+  },
+  "resolutions": {
+    "strip-ansi": "6.0.0"
+  },
+  "dependencies": {}
+}
