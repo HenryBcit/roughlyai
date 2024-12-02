@@ -1,10 +1,10 @@
-RoughlyAI's simple commands
+# RoughlyAI
+
+RoughlyAI is a file management platform that an organization can use for their own Artificial Intelligence training. We use a combination of llama-index and AWS lambda and S3 as our core stack. Provided here are simple functions for developers to prompt their own data models.
 
 <!-- ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/HenryBcit/roughlyai/test.js.yml?branch=main)b -->
 
-To use the API, first sign up for an account at https://beta.roughlyai.com
-
-Then get an api key
+To use the API, first sign up for an account at https://beta.roughlyai.com and enable the api key under "The Vault"
 
 # QUICK START
 
@@ -93,7 +93,7 @@ async function handler(req:Request, resp:Response){
 ```
 
 ### client.tsx
-```jsx
+```tsx
 ///client side using react
 import { RetrieveResponse } from "roughlyai";
 import { useState } from "react";
