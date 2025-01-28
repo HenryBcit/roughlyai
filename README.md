@@ -118,4 +118,32 @@ function CustomComp(){
 }
 ```
 
+## Uploading Files
 
+Much like Prompting, you can uploading files to your vault / model. If you have custom data to send over.
+
+### server.ts
+```typescript
+///server side server.ts
+import { PromptModel, RetrieveResponse } from "roughlyai";
+
+async function handler(req:Request, resp:Response){
+  try {
+    const _url:string = await PromptModel({
+      prompt: "Tell me a few interesting facts about the documents?",
+      api_key: process.env.ROUGHLYAI_API_KEY,
+      dir: "/RoughlyAPITest/",
+    });
+
+    //this part can be done in either server side or client side
+
+    //if you plan to do this on the client side then just return the url to the client side
+    //return Response.json(_url);
+
+    const _json:any = await RetrieveResponse(_url);
+    return resp.json(_json);
+  } catch (e:any) {
+    console.log("error", e.message);
+  }
+}
+```

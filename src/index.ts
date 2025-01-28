@@ -1,3 +1,5 @@
+// import { ExtractUrl } from "./extract";
+
 const root = "https://api.roughlyai.com/ttfiles";
 // const root = "http://localhost:3001";
 if (process.env.NODE_ENV === "production") {
@@ -55,6 +57,7 @@ export async function TrainModel({
   api_key = null
 }:{dir: string | null, api_key?: string | null }){
   try {
+    
     const _resp = await fetch(`${root}/api/prompt_response`, {
       method: "POST",
       headers: {
@@ -88,13 +91,14 @@ export async function UploadUrl({
     // return false;
   }
   try {
+    // const _upload_data = await ExtractUrl(data.url)
     const _resp = await fetch(`${root}/api/prompt_response`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        handler: "api_upload",
+        handler: "api_upload_url",
         key: dir,
         upload_data: data,
         api_key: api_key || process.env.ROUGHLYAI_API_KEY
@@ -173,6 +177,69 @@ export async function RetrieveResponse(_url: string) {
     });
 
     return _response;
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+}
+
+export async function DeleteModelFiles(
+  {api_key, dir, filenames}:
+  {api_key:string, dir: string, filenames:string | string[]}) {
+  // if(typeof window === "undefined"){
+  //   throw new Error("Should be calling this on the client side");
+  // }
+  if(typeof window !== "undefined"){
+    throw new Error("This function must be called serverside");
+    // return false;
+  }
+  try {
+    const _resp = await fetch(`${root}/api/prompt_response`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        handler: "api_delete_files",
+        key: dir,
+        api_key: api_key || process.env.ROUGHLYAI_API_KEY,
+        files:filenames
+      })
+    });
+    const {msg:_msg, status} = await _resp.json();
+    if(status){
+      return _msg;
+    } else {
+      return false;
+    }
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+}
+
+export async function ListModelFiles({api_key, dir}:
+  {api_key:string, dir: string}){
+  if(typeof window !== "undefined"){
+    throw new Error("This function must be called serverside");
+    // return false;
+  }
+  try {
+    const _resp = await fetch(`${root}/api/prompt_response`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        handler: "api_list_keys",
+        key: dir,
+        api_key: api_key || process.env.ROUGHLYAI_API_KEY
+      })
+    });
+    const {data:_data, status} = await _resp.json();
+    if(status){
+      return _data;
+    } else {
+      return false;
+    }
   } catch (e: any) {
     throw new Error(e.message);
   }

@@ -1,4 +1,4 @@
-import { PrepareUploadFile, PromptModel, TrainModel, RetrieveResponse } from '../src';
+import { PrepareUploadFile, PromptModel, TrainModel, RetrieveResponse, UploadUrl } from '../src';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -41,5 +41,24 @@ test('prompting a model ', async () => {
   const _prog:any = await RetrieveResponse(result);
   expect(_prog.progress === 2).toBeTruthy();
   expect(typeof _prog.answer === "string").toBeTruthy();
+  console.log(_prog);
+}, 60*1000*15);
+
+test.only('uploading url to a model ', async () => {
+  const result = await UploadUrl({
+    dir:"/Roughly/URLUpload/",
+    api_key:process.env.ROUGHLYAI_API_KEY,
+    data:[
+      {
+        url:"https://www.bcit.ca/programs/digital-design-and-development-diploma-full-time-6515dipma/",
+        filename:"test.txt"
+      }
+    ]
+  });
+
+  expect(result).toBeTruthy();
+  const _prog:any = await RetrieveResponse(result);
+  expect(_prog.progress === 2).toBeTruthy();
+  // expect(typeof _prog.answer === "string").toBeTruthy();
   console.log(_prog);
 }, 60*1000*15);
