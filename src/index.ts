@@ -159,7 +159,7 @@ export async function RetrieveResponse(_url: string) {
   try {
     const _response = await new Promise((resolve) => {
       const GetProgress = async (tries = 0) => {
-        if (tries === 10) {
+        if (tries >= 50) {
           console.log("too long");
           resolve(false)
         }
