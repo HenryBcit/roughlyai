@@ -137,7 +137,7 @@ export async function PromptModel({
         key: dir,
         api_key: api_key || process.env.ROUGHLYAI_API_KEY,
         question:prompt,
-        numsimular:10
+        numsimular:30
       })
     });
     const {data:_url, status} = await _resp.json();
