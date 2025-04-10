@@ -1,6 +1,6 @@
 {
   "name": "roughlyai",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "core functions needed to run roughlyai functionalities",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
