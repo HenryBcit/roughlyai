@@ -64,7 +64,7 @@ export async function GetFileContent({
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        handler: "get_file",
+        handler: "api_get_file",
         key: dir,
         api_key: api_key || process.env.ROUGHLYAI_API_KEY
       })
