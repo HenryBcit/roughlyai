@@ -52,6 +52,37 @@ export async function PrepareUploadFile({
   }
 };
 
+export async function PrepareUploadImage({
+  data = [],
+  dir = null,
+  api_key = null
+}: { data: FileTypes[], dir: string | null, api_key?: string | null }){
+  CheckServerSide();
+  try {
+    const _resp = await fetch(`${root}/api/prompt_response`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        handler: "prepare_ocr",
+        key: dir,
+        files: data,
+        api_key: api_key || process.env.ROUGHLYAI_API_KEY
+      })
+    })
+    const { data: _url, status } = await _resp.json();
+    console.log("what is url?", _url);
+    if(status){
+      return _url;
+    } else {
+      return false;
+    }
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+};
+
 export async function GetFileContent({
   dir = null,
   api_key = null
