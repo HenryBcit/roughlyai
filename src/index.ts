@@ -71,10 +71,12 @@ export async function PrepareUploadImage({
         api_key: api_key || process.env.ROUGHLYAI_API_KEY
       })
     })
-    const { data: _url, status } = await _resp.json();
-    console.log("what is url?", _url);
+    const { data: allurls, status } = await _resp.json();
+    
+    const {_urls, _exists} = allurls;
+    console.log("what is urls?", _urls, _exists);
     if(status){
-      return _url;
+      return allurls;
     } else {
       return false;
     }
@@ -178,8 +180,9 @@ export async function UploadUrl({
 export async function PromptModel({
   prompt=null,
   dir = null,
-  api_key = null
-}: { prompt: string | null, dir: string | null, api_key?: string | null }) {
+  api_key = null,
+  model = null
+}: { prompt: string | null, dir: string | null, api_key?: string | null, model?:string|null }) {
 
   if(typeof window !== "undefined"){
     throw new Error("This function must be called serverside");
@@ -196,6 +199,7 @@ export async function PromptModel({
         key: dir,
         api_key: api_key || process.env.ROUGHLYAI_API_KEY,
         question:prompt,
+        gptmodel:model || null,
         numsimular:30
       })
     });
